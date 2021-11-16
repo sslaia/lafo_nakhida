@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 
-class MenginputTransaksi extends StatefulWidget {
-  const MenginputTransaksi({Key? key}) : super(key: key);
+class MenginputMakanan extends StatefulWidget {
+  const MenginputMakanan({Key? key}) : super(key: key);
 
-  static const routeName = '/transaksi';
+  static const routeName = '/makanan';
 
   @override
-  _MenginputTransaksiState createState() => _MenginputTransaksiState();
+  _MenginputMakananState createState() => _MenginputMakananState();
 }
 
-class _MenginputTransaksiState extends State<MenginputTransaksi> {
-  final _transaksiKey = GlobalKey<FormState>();
+class _MenginputMakananState extends State<MenginputMakanan> {
+  final _makananKey = GlobalKey<FormState>();
 
-  final _penggunaController = TextEditingController();
-  final _makananController = TextEditingController();
-  final _jumlahController = TextEditingController();
-  final _keanggotaanController = TextEditingController();
-  final _totalController = TextEditingController();
+  final _namaController = TextEditingController();
+  final _deskripsiController = TextEditingController();
+  final _gambarController = TextEditingController();
+  final _hargaController = TextEditingController();
 
   @override
   void dispose() {
-    _penggunaController.dispose();
-    _makananController.dispose();
-    _jumlahController.dispose();
-    _keanggotaanController.dispose();
-    _totalController.dispose();
+    _namaController.dispose();
+    _deskripsiController.dispose();
+    _gambarController.dispose();
+    _hargaController.dispose();
     super.dispose();
   }
 
@@ -32,36 +30,16 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Memasukkan data transaksi baru'),
+        title: const Text('Memasukkan data makanan baru'),
       ),
       body: Form(
-        key: _transaksiKey,
+        key: _makananKey,
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: [
-              // TODO Ganti form berikut dengan DropdownMenu Pengguna
               TextFormField(
-                controller: _penggunaController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Masukkan nama pengguna';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  hintText: "Nama pengguna",
-                  labelText: "Pengguna",
-                  hintStyle: const TextStyle(color: Colors.black26),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              // TODO Ganti form berikut dengan DropdownMenu Makanan
-              TextFormField(
-                controller: _makananController,
+                controller: _namaController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Masukkan nama item makanan';
@@ -69,8 +47,8 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: "Nama item makanan",
-                  labelText: "Makanan",
+                  hintText: "Nama item makanan baru",
+                  labelText: "Nama",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -78,18 +56,17 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              // TODO Sesuaikan form berikut untuk default 1
               TextFormField(
-                controller: _jumlahController,
+                controller: _deskripsiController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan jumlah item';
+                    return 'Masukkan deskripsi item makanan';
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: "Jumlah item",
-                  labelText: "Jumlah",
+                  hintText: "Deskripsi item makanan",
+                  labelText: "Deskripsi",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -97,13 +74,17 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              // TODO Sesuaikan form berikut untuk checkbox
-              // Tidak perlu validasi. Default adalah False
               TextFormField(
-                controller: _keanggotaanController,
+                controller: _gambarController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan alamat url foto';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
-                  hintText: "Pelanggan ini anggota?",
-                  labelText: "Keanggotaan",
+                  hintText: "Alamat url foto",
+                  labelText: "Alamat url",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -111,13 +92,17 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              // TODO: Sesuaikan form ini untuk perkalian jumlah dan harga
-              // TODO: Buat supaya harga total otomatis ditampilkan/tidak diisi
               TextFormField(
-                controller: _totalController,
+                controller: _hargaController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan harga item makanan';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
-                  hintText: "Jumlah total harga",
-                  labelText: "Harga total",
+                  hintText: "Harga item makanan",
+                  labelText: "Harga",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -127,11 +112,12 @@ class _MenginputTransaksiState extends State<MenginputTransaksi> {
               const SizedBox(height: 8.0),
               ElevatedButton(
                 onPressed: () {
-                  final form = _transaksiKey.currentState;
-                  if (_transaksiKey.currentState!.validate()) {
+                  final form = _makananKey.currentState;
+                  if (_makananKey.currentState!.validate()) {
                     form?.save();
                     // TODO 1. Mencatat waktu input data
-                    // TODO 2. Menyimpan data baru ke database
+                    // TODO 2. Mencatat waktu dibaharui kalau ada
+                    // TODO 3. Menyimpan data baru ke database
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Data telah disimpan!'),

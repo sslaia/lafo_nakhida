@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MenginputAnggota extends StatefulWidget {
-  const MenginputAnggota({Key? key}) : super(key: key);
+class MenginputHak extends StatefulWidget {
+  const MenginputHak({Key? key}) : super(key: key);
 
-  static const routeName = '/anggota';
+  static const routeName = '/hak';
 
   @override
-  _MenginputAnggotaState createState() => _MenginputAnggotaState();
+  _MenginputHakState createState() => _MenginputHakState();
 }
 
-class _MenginputAnggotaState extends State<MenginputAnggota> {
-  final _anggotaKey = GlobalKey<FormState>();
+class _MenginputHakState extends State<MenginputHak> {
+  final _hakKey = GlobalKey<FormState>();
 
-  final namaController = TextEditingController();
-  final nomorController = TextEditingController();
+  final _namaController = TextEditingController();
+  final _deskripsiController = TextEditingController();
 
   @override
   void dispose() {
-    namaController.dispose();
-    nomorController.dispose();
+    _namaController.dispose();
+    _deskripsiController.dispose();
     super.dispose();
   }
 
@@ -26,25 +26,25 @@ class _MenginputAnggotaState extends State<MenginputAnggota> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Memasukkan data anggota baru'),
+        title: const Text('Memasukkan data hak baru'),
       ),
       body: Form(
-        key: _anggotaKey,
+        key: _hakKey,
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: [
               TextFormField(
-                controller: namaController,
+                controller: _namaController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan nama lengkap anggota';
+                    return 'Masukkan nama hak';
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: "Nama anggota baru",
-                  labelText: "Nama",
+                  hintText: "Nama hak baru",
+                  labelText: "Hak",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -53,16 +53,16 @@ class _MenginputAnggotaState extends State<MenginputAnggota> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                controller: nomorController,
+                controller: _deskripsiController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan nomor anggota';
+                    return 'Masukkan deskripsi hak';
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: "Nomor anggota baru",
-                  labelText: "Nomor",
+                  hintText: "Deskripsi hak",
+                  labelText: "Deskripsi",
                   hintStyle: const TextStyle(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -72,9 +72,12 @@ class _MenginputAnggotaState extends State<MenginputAnggota> {
               const SizedBox(height: 8.0),
               ElevatedButton(
                 onPressed: () {
-                  final form = _anggotaKey.currentState;
-                  if (_anggotaKey.currentState!.validate()) {
+                  final form = _hakKey.currentState;
+                  if (_hakKey.currentState!.validate()) {
                     form?.save();
+                    // TODO 1. Mencatat waktu input data
+                    // TODO 2. Mencatat waktu dibaharui kalau ada
+                    // TODO 3. Menyimpan data baru ke database
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Data telah disimpan!'),
